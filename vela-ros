@@ -17,7 +17,7 @@ class AptWithSrc:
         self.logger = logging.getLogger()
         self.logger.setLevel(loglevel)
         self.logger.addHandler(logging.StreamHandler())
-        self.src_pkgs = {}
+        self.build_depends = {}
 
         with open(config_file, 'r', encoding='utf-8') as f:
             self.cfg = json.load(f)
@@ -37,7 +37,10 @@ class AptWithSrc:
                 arch = paragraph.get('Architecture')
                 if not arch:
                     self.logger.warning(f'{package}: no Architecture')
-                self.src_pkgs[package] = build_depends
+                self.build_depends[package] = build_depends
+
+        for package in self.cfg['prebuilt-debs'].keys():
+            self.build_depends[package] = []
 
     def is_installed(self, package):
         result = run_cmd(['dpkg', '-l', package], capture_output=True, text=True)
@@ -55,7 +58,7 @@ class AptWithSrc:
         os.chdir(org_path)
 
     def copy_from_prebuilt(self, package):
-        shutil.filecopy(os.path.join('prebuilt-debs', self.cfg['prebuilt-debs'][package]), self.cfg['prebuilt-debs'][package])
+        shutil.copy(os.path.join('prebuilt-debs', self.cfg['prebuilt-debs'][package]), self.cfg['prebuilt-debs'][package])
 
     def build_deb_from_apt_get_source(self, package):
         run_cmd(['apt-get', 'source', '-b', package], check=True)
@@ -63,7 +66,8 @@ class AptWithSrc:
     def build_deb_and_install(self, package):
         deb_files = glob.glob(package + '_*.deb')
         if len(deb_files) == 0:
-            run_cmd(['sudo', 'apt-get', 'build-dep', '-y', package], capture_output=True, text=True, check=True)
+            if self.build_depends[package]:
+                run_cmd(['sudo', 'apt-get', 'build-dep', '-y', package], capture_output=True, text=True, check=True)
             if 'git-repo' in self.cfg and package in self.cfg['git-repo']:
                 self.build_deb_from_git(package)
             elif 'prebuilt-debs' in self.cfg and package in self.cfg['prebuilt-debs']:
@@ -93,8 +97,8 @@ class AptWithSrc:
             return
 
         self.logger.info(f'Install {package}...')
-        build_depends = self.src_pkgs.get(package)
-        if not build_depends:
+        build_depends = self.build_depends.get(package)
+        if build_depends is None:
             run_cmd(['sudo', 'apt-get', 'install', '-y', package], check=True)
         else:
             for dep in build_depends:
