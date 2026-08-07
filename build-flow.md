@@ -17,6 +17,10 @@ flowchart TB
         click MPPI href "https://github.com/riscv-vela/ros-jazzy-nav2-mppi-controller" "MPPI controller plugin repository"
     end
 
+    subgraph BINARIES["RISC-V-adapted ROS 2 Package Binaries"]
+		RTI_CONNEXT_DDS["rti-connext-dds"]
+	end
+
     VELA["vela-ros<br/>ROS 2 Jazzy Build and Packaging<br/>Orchestrator for RISC-V64"]
 
     DEBS[/"Build Artifacts<br/>RISC-V64 Debian Packages<br/>ros-jazzy-*.deb · python3-*.deb"/]
@@ -29,6 +33,8 @@ flowchart TB
     BACKWARD -->|"package source"| VELA
     OGRE -->|"package source"| VELA
     MPPI -->|"package source"| VELA
+
+    RTI_CONNEXT_DDS -->|"package binary"| VELA
 
     VELA -->|"builds with dpkg-buildpackage"| DEBS
     DEBS -->|"installs with apt"| ENV
