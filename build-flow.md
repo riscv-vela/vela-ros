@@ -1,4 +1,4 @@
-## 2. Relationship Between `vela-ros` and RISC-V-adapted ROS Packages
+## Relationship Between `vela-ros` and RISC-V-adapted ROS Packages
 
 The following repositories provide RISC-V-adapted package sources that are consumed and built by `vela-ros`.
 
