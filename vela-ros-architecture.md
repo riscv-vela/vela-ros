@@ -12,7 +12,7 @@ flowchart TB
         NAV2["Nav2"]
         EXPLORE["Explore-lite"]
         COLCON["colcon build tool"]
-        end
+       
         DDS["rti-fastDDS"]
         DEBS["RiscV64 ros2 prebuilt *.deb packages"]
 
