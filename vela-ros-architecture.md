@@ -4,8 +4,8 @@
 
 ```mermaid
 flowchart TB
-    SRC["RiscV ROS2 Jazzy source archive
-packages.ros.org · apt-get source repo"]
+    SRC["RiscV64 ROS2 Jazzy source archive
+packages.ros.org · apt source repo"]
 
     subgraph VELAROS["Vela-ROS"]
         BASE["ROS2 Base Package(Jazzy)"]
