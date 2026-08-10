@@ -1,0 +1,37 @@
+## Vela-ROS Package Composition
+
+`vela-ros` packages the ROS 2 Jazzy stack for riscv64 out of the upstream source archive, then installs the resulting Debian packages onto the Vela platform.
+
+```mermaid
+flowchart TB
+    SRC["RiscV ROS2 Jazzy source archive<br/>packages.ros.org · apt-get source repo"]
+
+    subgraph VELAROS["Vela-ROS"]
+        BASE["ROS2 Base Package(Jazzy)"]
+        SLAM["SLAM"]
+        NAV2["Nav2"]
+        subgraph TOOLS[" "]
+            direction TB
+            EXPLORE["Explore-lite"]
+            COLCON["colcon build tool"]
+        end
+        DDS["rti-fastDDS"]
+        DEBS["RiscV64 ros2 prebuilt *.deb packages"]
+
+        BASE ~~~ SLAM
+        BASE ~~~ NAV2
+        BASE ~~~ TOOLS
+        SLAM ~~~ DDS
+        NAV2 ~~~ DDS
+        TOOLS ~~~ DDS
+        DDS ~~~ DEBS
+    end
+
+    ENV["Vela-OS(Ubuntu24.04 RiscV64)"]
+
+    SRC --> BASE
+    DEBS --> ENV
+
+    style VELAROS fill:none,stroke:#F5A623,stroke-width:3px
+    style DEBS fill:none,stroke:none
+```
