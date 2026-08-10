@@ -34,6 +34,7 @@ packages.ros.org · apt-get source repo"]
     DEBS --> ENV
 
     style VELAROS fill:none,stroke:#000000,stroke-width:4px
+    style TOOLS fill:none,stroke:none
     style DEBS fill:none,stroke:none
     linkStyle 7,8 stroke:#4472C4,stroke-width:1.2px
 ```
