@@ -10,10 +10,8 @@ flowchart TB
         BASE["ROS2 Base Package(Jazzy)"]
         SLAM["SLAM"]
         NAV2["Nav2"]
-        subgraph TOOLS[" "]
-            direction TB
-            EXPLORE["Explore-lite"]
-            COLCON["colcon build tool"]
+        EXPLORE["Explore-lite"]
+        COLCON["colcon build tool"]
         end
         DDS["rti-fastDDS"]
         DEBS["RiscV64 ros2 prebuilt *.deb packages"]
