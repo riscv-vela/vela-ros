@@ -1,4 +1,4 @@
-## Vela-ROS Package Composition
+## Vela-ROS Package Overall Architecture
 
 `vela-ros` packages the ROS 2 Jazzy stack for riscv64 out of the upstream source archive, then installs the resulting Debian packages onto the Vela platform.
 
