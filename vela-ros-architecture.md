@@ -4,15 +4,18 @@
 
 ```mermaid
 flowchart TB
-    SRC["RiscV ROS2 Jazzy source archive<br/>packages.ros.org · apt-get source repo"]
+    SRC["RiscV ROS2 Jazzy source archive
+packages.ros.org · apt-get source repo"]
 
     subgraph VELAROS["Vela-ROS"]
         BASE["ROS2 Base Package(Jazzy)"]
         SLAM["SLAM"]
         NAV2["Nav2"]
-        EXPLORE["Explore-lite"]
-        COLCON["colcon build tool"]
-       
+        subgraph TOOLS[" "]
+            direction TB
+            EXPLORE["Explore-lite"]
+            COLCON["colcon build tool"]
+        end
         DDS["rti-fastDDS"]
         DEBS["RiscV64 ros2 prebuilt *.deb packages"]
 
@@ -30,8 +33,9 @@ flowchart TB
     SRC --> BASE
     DEBS --> ENV
 
-    style VELAROS fill:none,stroke:#F5A623,stroke-width:3px
+    style VELAROS fill:none,stroke:#000000,stroke-width:4px
     style DEBS fill:none,stroke:none
+    linkStyle 7,8 stroke:#4472C4,stroke-width:1.2px
 ```
 ### Summary
 
