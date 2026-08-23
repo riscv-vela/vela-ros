@@ -70,6 +70,7 @@ To build and install specific packages in order, pass their names directly:
 ./vela-ros ros-jazzy-rclcpp ros-jazzy-ros-base
 ```
 
-ROS2 base(basic) package build with RiscV64 can take more than 6 hours in the emulated and P550(about 199 pkgs).
-Extended ROS2 packagefor AMR app with SLAM, NAV2, explore-lite can take more than 8 hours plus in the emulated env or sifive board depends on user's software competence. (about 430 pkgs).
-Total installation time(more than 6+8 hours) depends on the number of populated CPU core, the network speed, sata or NVMe storage usage. 
+Building the basic ROS 2 packages for RISC-V 64-bit can take more than 6 hours in an emulated environment or on a SiFive P550 board (around 199 packages).
+Building extended ROS 2 packages for AMR applications—including SLAM, Nav2, and explore_lite—can take over 8 hours in an emulated environment or on a SiFive board,
+depending on the user's software competence (around 430 packages). 
+Consequently, the total build time (more than 14 hours combined) depends on the number of CPU cores, network speed, and whether SATA or NVMe storage is used.
